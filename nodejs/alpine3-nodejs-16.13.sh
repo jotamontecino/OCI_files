@@ -24,7 +24,7 @@ function brun() {
 brun apk add --no-cache bash
 brun apk add --no-cache --update nodejs npm
 
-brun npm i -g npx
+brun npm i -g npx yarn
 
 ## Creating image
 buildah commit --rm $node_container "$image:$tag"
