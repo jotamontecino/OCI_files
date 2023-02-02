@@ -26,3 +26,7 @@ rm kratos_${tag:1}-linux_64bit.tar.gz
 
 buildah copy $kratos_container ./release/kratos /usr/bin/kratos
 rm -rf release
+
+
+## Creating image
+buildah commit --rm $kratos_container "$image:$tag"

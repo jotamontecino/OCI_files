@@ -2,11 +2,12 @@
 set -eu -o pipefail
 
 ## General internal vars
-image="${CI_REGISTRY_IMAGE:-node16-dev}"
+read -p 'Service: ' CI_REGISTRY_IMAGE
+read -p 'Tag: ' CI_COMMIT_REF_SLUG
+image="${CI_REGISTRY_IMAGE:-node-dev_env-16}"
 tag="${CI_COMMIT_REF_SLUG:-latest}"
 
-
-echo ""
+cls
 echo "Building $image:$tag"
 node_container=$(buildah from node16-raw:latest)
 
@@ -22,6 +23,8 @@ function brun() {
 }
 
 #
-brun npm install -g clinic jest yarn newman
-brun npm audit fix
-buildah commit --rm $node_container "$image:$tag"
+brun yarn install
+
+echo ""
+echo "Building $image:$tag"
+node_container=$(buildah from alpine)
