@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu -o pipefail
 
-OCI_BASE_IMAGE="${CI_REGISTRY_IMAGE:-docker.io/alpine:3.18.4}"
+OCI_BASE_IMAGE="${CI_REGISTRY_BASE_IMAGE:-docker.io/alpine:3.18.4}"
 container=$(buildah from $OCI_BASE_IMAGE)
 echo "Container id ${container}"
 

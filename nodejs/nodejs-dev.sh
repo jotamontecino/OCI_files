@@ -2,11 +2,11 @@
 set -eu -o pipefail
 
 ## General internal vars
-image="${CI_REGISTRY_IMAGE:-node}"
-tag="${CI_COMMIT_REF_SLUG:-18.18-dev}"
+IMAGE_REPO="${CI_REGISTRY_IMAGE:-docker.io/trashnochados/node}"
+IMAGE_TAG="${CI_COMMIT_REF_SLUG:-18.18-dev}"
 
 echo ""
-echo "Building $image:$tag"
+echo "Building $IMAGE_REPO:$IMAGE_TAG"
 
 . $PWD/base/dev.sh
 
@@ -20,6 +20,4 @@ buildah config \
 
 brun yarn global add clinic eslint jest
 
-## Creating image
-buildah commit --rm $container "$image:$tag"
-buildah push "$image:$tag";
+. $PWD/base/commit.sh
