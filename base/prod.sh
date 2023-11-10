@@ -9,11 +9,15 @@ echo "Container id ${container}"
 buildah config \
   --author='Jav <jotamontecino@gmail.com>' \
   --workingdir=/usr/src/app/ \
+  --env OCI_BASE_IMAGE=alpine:3.18.4 \
   $container
 
 ## Adding raw layers
 function brun() {
-  buildah run $container -- "$@"
+  buildah run --add-history $container -- "$@"
+}
+function bprint() {
+  buildah run $container -- /bin/sh -c "echo $@"
 }
 
 function push() {
