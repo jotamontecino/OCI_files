@@ -2,29 +2,27 @@
 set -eu -o pipefail
 
 ## General internal vars
-image="${CI_REGISTRY_IMAGE:-cosign}"
-cosign_version="${COSIGN_VERSION:-v1.5.1}"
-arch="${ARCH:-amd64}"
+IMAGE_REPO="${CI_REGISTRY_IMAGE:-docker.io/trashnochados/cosign}"
+IMAGE_TAG="${CI_COMMIT_REF_SLUG:-2.2}"
 
 echo ""
-echo "Building $image:$cosign_version"
-cosign_container=$(buildah from alpine:3.14)
+echo "Building $IMAGE_REPO:$IMAGE_TAG"
 
-## General configuration
+. $PWD/base/prod.sh
+
 buildah config \
-  --author='Jav <jotamontecino@gmail.com>' \
-  --workingdir=/usr/src/cosign/ \
-$cosign_container
+    --env COSIGN_VERSION=v2.2.1 \
+    --env COSIGN_VERSION_CHECKSUM=b02028add9898575516a2626a5f1a262f080291d8f253ba1fd61cedb0e476591 \
+    --workingdir=/usr/src/cosign/ \
+    $container
 
-## Adding raw layers
-function brun() {
-  buildah run $cosign_container -- "$@"
-}
+echo ""
+bprint 'Installing Cosgin: "$COSIGN_VERSION"'
+echo "###################"
+bprint 'Installing Cosgin: https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign-linux-amd64'
 
-## add he cosign runtime
-brun wget https://github.com/sigstore/cosign/releases/download/${cosign_version}/cosign-linux-${arch}
-brun mv ./cosign-linux-${arch} /usr/bin/cosign
-brun chmod +x /usr/bin/cosign
+brun /bin/sh -c 'wget https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign-linux-amd64'
+brun /bin/sh -c 'mv ./cosign-linux-amd64 /usr/bin/cosign'
+brun /bin/sh -c 'chmod +x /usr/bin/cosign'
 
-## Creating image
-buildah commit --rm $cosign_container "$image:$cosign_version"
+. $PWD/base/commit.sh
