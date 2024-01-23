@@ -18,6 +18,6 @@ buildah config \
 
 . $PWD/nodejs/nodejs-raw.sh
 
-brun yarn global add clinic eslint jest
+brun yarn global add clinic eslint jest vm2 @usebruno/cli
 
 . $PWD/base/commit.sh
