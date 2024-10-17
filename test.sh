@@ -1,0 +1,2 @@
+HUGO=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "browser_download_url.*hugo_.*_linux-amd64.tar.gz" | head --lines 1 | cut -d : -f 2,3 | tr -d \")
+wget $HUGO -O /tmp/hugo.tar.gz

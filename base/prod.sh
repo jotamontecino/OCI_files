@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu -o pipefail
 
-OCI_BASE_IMAGE="${CI_REGISTRY_BASE_IMAGE:-docker.io/alpine:3.18.4}"
+OCI_BASE_IMAGE="${CI_REGISTRY_BASE_IMAGE:-docker.io/alpine:3.20}"
 container=$(buildah from $OCI_BASE_IMAGE)
 echo "Container id ${container}"
 
@@ -9,7 +9,7 @@ echo "Container id ${container}"
 buildah config \
   --author='Jav <jotamontecino@gmail.com>' \
   --workingdir=/usr/src/app/ \
-  --env OCI_BASE_IMAGE=alpine:3.18.4 \
+  --env OCI_BASE_IMAGE=alpine:3.20 \
   $container
 
 ## Adding raw layers
@@ -23,4 +23,8 @@ function bprint() {
 function push() {
     buildah commit --rm $container "$image:$tag"
     buildah push "$image:$tag";
+}
+
+function bcopy() {
+  buildah copy --add-history $container -- "$@"
 }

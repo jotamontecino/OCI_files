@@ -5,12 +5,13 @@ set -eu -o pipefail
 IMAGE_REPO="${CI_REGISTRY_IMAGE:-docker.io/trashnochados/hugo}"
 IMAGE_TAG="${CI_COMMIT_REF_SLUG:-0.122.0-ext}"
 
-CI_REGISTRY_BASE_IMAGE=docker.io/golang:alpine3.19
+
+CI_REGISTRY_BASE_IMAGE=docker.io/golang:1.22rc2-bookworm
 
 echo ""
 echo "Building $IMAGE_REPO:$IMAGE_TAG"
 
-. $PWD/base/dev.sh
+. $PWD/base/prod.sh
 
 echo "Copying DART SASS"
 DART_SASS=$(curl -s https://api.github.com/repos/sass/dart-sass/releases/latest | grep "browser_download_url.*dart-sass-.*-linux-x64.tar.gz" | cut -d : -f 2,3 | tr -d \")
