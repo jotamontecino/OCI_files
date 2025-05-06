@@ -16,6 +16,6 @@ buildah config \
     --env YARN_VERSION=1.22.22 \
     $container
 
-. $PWD/nodejs/nodejs-raw.sh
+. $PWD/nodejs/raw.sh
 
 . $PWD/base/commit.sh
