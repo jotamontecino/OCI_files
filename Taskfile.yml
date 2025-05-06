@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+
+  build-hugo-*:
+    desc: Build the hugo image
+    vars:
+      ENV: '{{index .MATCH 0}}'
+    cmds:
+      - ./hugo/hugo-{{.ENV}}.sh
+  
+
+  build-*-*:
+    desc: Build the hugo image
+    vars:
+      PROJECT: '{{index .MATCH 0}}'
+      ENV: '{{index .MATCH 1}}'
+    cmds:
+      - ./{{.PROJECT}}/{{.ENV}}.sh
