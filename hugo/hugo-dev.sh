@@ -3,8 +3,7 @@ set -eu -o pipefail
 
 ## General internal vars
 IMAGE_REPO="${CI_REGISTRY_IMAGE:-docker.io/trashnochados/hugo}"
-IMAGE_TAG="${CI_COMMIT_REF_SLUG:-0.122.0-ext}"
-
+IMAGE_TAG="${CI_COMMIT_REF_SLUG:-0.143.0-ext}"
 
 CI_REGISTRY_BASE_IMAGE=docker.io/golang:1.22rc2-bookworm
 
@@ -29,8 +28,7 @@ rm /tmp/hugo*
 
 
 buildah config \
-    --env HUGO_VERSION=0.122.0 \
+    --env HUGO_VERSION=0.143.0 \
     $container
-
 
 . $PWD/base/commit.sh
