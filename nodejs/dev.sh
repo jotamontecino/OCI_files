@@ -3,7 +3,7 @@ set -eu -o pipefail
 
 ## General internal vars
 IMAGE_REPO="${CI_REGISTRY_IMAGE:-docker.io/trashnochados/node}"
-IMAGE_TAG="${CI_COMMIT_REF_SLUG:-20.17-dev}"
+IMAGE_TAG="${CI_COMMIT_REF_SLUG:-22.14-dev}"
 
 echo ""
 echo "Building $IMAGE_REPO:$IMAGE_TAG"
@@ -11,8 +11,8 @@ echo "Building $IMAGE_REPO:$IMAGE_TAG"
 . $PWD/base/dev.sh
 
 buildah config \
-    --env NODE_VERSION=20.17.0 \
-    --env NODE_VERSION_CHECKSUM=913547514c21152f09d46b8b140d30dd5ea40d2e3ac4ddc6ff3e12a666bec482 \
+    --env NODE_VERSION=22.14.0 \
+    --env NODE_VERSION_CHECKSUM=87f163387ac85df69df6eeb863a6b6a1aa789b49cda1c495871c0fe360634db3 \
     --env YARN_VERSION=1.22.22 \
     $container
 

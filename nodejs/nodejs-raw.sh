@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 brun /bin/sh -c "addgroup -g 1000 node && adduser -u 1000 -G node -s /bin/sh -D node"
 brun /bin/sh -c "apk add --no-cache libstdc++ && apk add --no-cache --virtual .build-deps curl"
 
